@@ -120,11 +120,10 @@ def main():
             time_dimension.CumulVar(routing.End(i)))
 
     # Add breaks
-    time_dimension = routing.GetDimensionOrDie("Time")
     node_visit_transit = {}
     for n in xrange(routing.Size()):
         node_visit_transit[n] = 0
-
+    # Add a break lasting 2 minutes, start between 5 and 20 minutes after route start
     for v in xrange(data['num_vehicles']):
         start_var = time_dimension.CumulVar(routing.Start(v))
         break_start = routing.solver().Sum([routing.solver().IntVar(5, 20), start_var])
